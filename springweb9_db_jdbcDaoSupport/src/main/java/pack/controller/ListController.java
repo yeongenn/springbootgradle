@@ -12,6 +12,7 @@ import pack.model.SangpumDto;
 
 @Controller
 public class ListController {
+	
 	@Autowired
 	private DataDao dataDao;
 	
