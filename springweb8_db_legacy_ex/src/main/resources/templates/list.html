@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>👀직급별 직원 목록👀</h3>
+<table border="1">
+	<tr>
+		<th>사번</th>
+		<th>사원명</th>
+		<th>성별</th>
+		<th>연봉</th>
+	</tr>
+	
+	<!-- 데이터가 있는 경우에만 출력 -->	
+	<th:block th:if="${datas.size > 0}">
+	<tr th:each="data:${datas}">
+		<td th:text="${data.no}"></td>
+		<td th:text="${data.name}"></td>
+		<td th:text="${data.gender}"></td>
+		<td th:text="${data.pay}"></td>
+	</tr>
+	<tr>
+		<td colspan="4" th:text="|인원 수 : ${datas.size}|"></td>
+	</tr>
+	</th:block>
+</table>
+</body>
+</html>
