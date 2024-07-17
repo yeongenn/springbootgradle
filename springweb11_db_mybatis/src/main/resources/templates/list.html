@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>🐨상품 목록(@MVC : Mybatis 사용)🐨</h3>
+<table border="1">
+	<tr>
+		<th>인덱스</th><th>코드</th><th>품명</th><th>수량</th><th>단가</th>
+	</tr>
+	
+	<!-- 데이터가 있는 경우에만 출력 -->	
+	<th:block th:if="${datas.size > 0}">
+	<tr th:each="data, numStatus:${datas}">
+		<td th:text="${numStatus.index + 1}">인덱스</td>
+		<td th:text="${data.code}"></td>
+		<td>[[${data.sang}]]</td>
+		<td th:text="${data.su}"></td>
+		<!-- ${#numbers.formatInteger(표시해야 할 값, 최소 자릿수, 구분자)} -->
+		<td>[[${#numbers.formatInteger(data.dan, 3, 'COMMA')}]]</td>
+	</tr>
+	
+	<tr>
+		<td colspan="5">
+			<form th:action="@{/search}" method="get">
+				검색 상품명 : <input type="text" name="searchValue">
+				<input type="submit" value="검 색">
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5" th:text="|건수 : ${datas.size}|">건수</td>
+	</tr>
+	</th:block>
+</table>
+</body>
+</html>
