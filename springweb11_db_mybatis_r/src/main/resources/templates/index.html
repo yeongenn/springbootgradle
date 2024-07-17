@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>springweb11_db_mybatis_r</title>
@@ -11,5 +11,9 @@
 	<br>
 	<br>
 	<!-- 부서이름 입력 혹은 클릭하면 소속 직원과 그 직원이 담당하는 고객 출력하기(?) -->
+	<form action="buser" method="get">
+		부서명 : <input type="text" name="depName"><br>
+		<input type="submit" value="확 인">
+	</form>
 </body>
 </html>

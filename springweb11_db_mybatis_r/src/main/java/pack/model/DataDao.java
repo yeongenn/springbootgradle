@@ -23,4 +23,9 @@ public class DataDao {
 		List<GogekDto> gogekList = gogekMapper.selectMyGogek(no);
 		return gogekList;
 	}
+
+	public List<JikwonDto> getByBuser(String depName){
+		List<JikwonDto> list = jikMapper.selectAll2(depName);
+		return list;
+	}
 }

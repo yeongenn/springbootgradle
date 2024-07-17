@@ -33,4 +33,12 @@ public class JikwonController {
 //		model.addAttribute("list", "메롱메롱");
 		return "gogekList";
 	}
+
+	@GetMapping("buser")
+	public String listByBuser(@RequestParam(value="depName") String depName,
+							  Model model){
+		List<JikwonDto> list = dataDao.getByBuser(depName);
+		model.addAttribute("list", list);
+		return "buserList";
+	}
 }

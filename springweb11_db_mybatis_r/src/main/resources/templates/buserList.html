@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>templates/buserList.html</title>
+</head>
+<body>
+<h3>소속 부서 전체 직원 및 담당 고객 출력</h3>
+<br>
+<table border="1">
+    <tr>
+        <th>사번</th>
+        <th>사원명</th>
+        <th>직급</th>
+        <th>평가등급</th>
+        <th>담당고객 리스트</th>
+    </tr>
+
+    <!-- 데이터가 있는 경우에만 출력 -->
+    <th:block th:if="${list.size > 0}">
+        <tr th:each="jikwon:${list}">
+            <td th:text="${jikwon.no}"></td>
+            <td th:text="${jikwon.name}"></td>
+            <td th:text="${jikwon.jik}"></td>
+            <td th:text="${jikwon.rating}"></td>
+            <td>
+                <table>
+                    <tr th:each="gogek:${jikwon.gogekList}">
+                        <td th:text="${gogek.no}"></td>
+                        <td th:text="${gogek.name}"></td>
+                        <td th:text="${gogek.tel}"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" th:text="|부서 소속 직원 수 : ${list.size}|"></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
