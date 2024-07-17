@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/result.html</title>
+</head>
+<body>
+<h3>직원 전체 출력</h3>
+<br>
+<table border="1">
+	<tr>
+		<th>사번</th>
+		<th>사원명</th>
+		<th>직급</th>
+		<th>평가등급</th>
+	</tr>
+	
+	<!-- 데이터가 있는 경우에만 출력 -->	
+	<th:block th:if="${list.size > 0}">
+	<tr th:each="jikwon:${list}">
+		<td th:text="${jikwon.no}"></td>
+		<!-- 사원명 클릭하면 담당 고객 출력하기 -->
+		<td>
+			<a th:href="@{/mygogek(no=${jikwon.no})}" th:text="${jikwon.name}">이름</a>
+		</td>
+		<td th:text="${jikwon.jik}"></td>
+		<td th:text="${jikwon.rating}"></td>
+	</tr>
+	<tr>
+		<td colspan="4" th:text="|인원 수 : ${list.size}|"></td>
+	</tr>
+	</th:block>
+</table>
+</body>
+</html>

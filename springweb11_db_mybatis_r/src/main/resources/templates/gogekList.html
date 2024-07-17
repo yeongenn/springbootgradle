@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>담당 고객 출력</h3>
+<br>
+<table border="1">
+	<tr>
+		<th>고객번호</th>
+		<th>고객명</th>
+		<th>고객전화</th>
+	</tr>
+	
+	<!-- 데이터가 있는 경우에만 출력 -->	
+	<th:block th:if="${list.size > 0}">
+	<tr th:each="gogek:${list}">
+		<td th:text="${gogek.no}"></td>
+		<td th:text="${gogek.name}"></td>
+		<td th:text="${gogek.tel}"></td>
+	</tr>
+	<tr>
+		<td colspan="4" th:text="|담당 고객 수 : ${list.size}|"></td>
+	</tr>
+	</th:block>
+</table>
+</body>
+</html>
