@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/update.html</title>
+</head>
+<body>
+<h3>* 자료 수정 *</h3>
+<!-- th:object, th:field 쓰면 name 속성 따로 안 적어도 된다고 한다 -->
+<form th:action="@{/update}" method="post" th:object="${member}">
+<input type="hidden" th:field="*{id}">
+아이디 : [[*{id}]]<br>
+비  번 : <input type="text" th:field="*{passwd}"><br>
+회원명 : <input type="text" th:field="*{name}"><br>
+<br>
+<input type="submit" value="수 정">
+<input type="button" value="이 전" onclick="history.back()">
+</form>
+
+</body>
+</html>
