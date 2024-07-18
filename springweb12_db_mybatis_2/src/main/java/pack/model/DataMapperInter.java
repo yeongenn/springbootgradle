@@ -17,7 +17,7 @@ public interface DataMapperInter {
 	List<MemDto> selectAll();
 	
 	@Select("select * from mem where num = #{num}")
-	List<MemDto> selectPart(String num);
+	MemDto selectPart(String num);
 	
 	@Insert("insert into mem values (#{num}, #{name}, #{addr})")
 	int insertData(MemBean bean);
