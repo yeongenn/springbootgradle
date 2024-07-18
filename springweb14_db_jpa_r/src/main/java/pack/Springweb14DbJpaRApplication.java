@@ -2,6 +2,7 @@ package pack;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -29,7 +30,7 @@ public class Springweb14DbJpaRApplication {
 //		System.out.print("일정 연봉 초과 직원 검색 : ");
 //		int pay = sc.nextInt();
 		jikwonByPay(6000);
-		jikwonByJik("대리");
+		jikwonByBuser("총무부");
 	}
 	
 	private void selectJikwon() {
@@ -59,14 +60,26 @@ public class Springweb14DbJpaRApplication {
 		}
 	}
 	
-	private void jikwonByJik(String jik) {
-		System.out.println("\n\n직급별 직원 읽기 - 임의생성 쿼리메서드 findByJik()");
-		List<Jikwon> jikwonList3 = jikwonRepository.findByJik(jik);
+	private void jikwonByBuser(String buserName) {
+		System.out.println("\n\n부서별 직원 읽기 - 임의생성 쿼리메서드 findByBuserBuserName()");
+		List<Jikwon> jikwonList3 = jikwonRepository.findByBuserBuserName(buserName);
 		for(Jikwon j : jikwonList3) {
 			System.out.println(j.getNo() + " " +
-								j.getName() + " " +
-								j.getJik());
+					j.getName() + " " +
+					j.getBuser().getBuserName() + " " +
+					j.getJik() + " " +
+					j.getPay() + " " +
+					j.getGender());
 		}
+
+		/*
+		읽어오긴 했다!
+		근데 join문으로 한번에 가져오는게 아니더라
+		join문 포함된 쿼리로 한번, join 대상 테이블 한번
+		너무 비효율적이지 않나?
+		fetch join 이라는게 있던데...
+		 */
+
 	}
 
 }
