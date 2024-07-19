@@ -101,6 +101,15 @@ public class Springweb14DbJpaApplication {
 								vo6.getDan());
 		}
 		
+		System.out.println("\n\n전체 자료 읽기 : Native Query"); // Native Query 사용
+		List<ProductVo> list4 = repository.findAllData2();		
+		for(ProductVo vo7 : list4) {
+			System.out.println(vo7.getCode() + " " + 
+								vo7.getSang() + " " + 
+								vo7.getSu() + " " +
+								vo7.getDan());
+		}
+		
 		
 	}
 

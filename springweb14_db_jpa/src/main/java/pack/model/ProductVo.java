@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +17,11 @@ import lombok.Setter;
 @Table(name="product")
 public class ProductVo {
 
-	@jakarta.persistence.Id
+	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//Indicates that the persistence provider must assign pks for the entity using a database identity column
+	//Indicates that the persistence provider must assign 
+	// primary keys for the entity using a database identity column
 	private int code;
 	
 	@Column(nullable = false, length = 20)
