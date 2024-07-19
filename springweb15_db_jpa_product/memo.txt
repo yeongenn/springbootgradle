@@ -1,0 +1,16 @@
+springweb15_db_jpa_product
+
+## 상품자료 읽어오기 - 웹에서
+
+## Entity 클래스에
+테이블의 모든 칼럼며이 들어갈 필요는 없다
+물리 테이블에 없는 칼럼이라도 필드 선언 가능
+
+## 쿼리메서드 네이밍룰
+메서드 네이밍룰 - findBy[엔티티명]칼럼명, readBy..., getBy...
+findBy변수명And변수명, findBy변수명Or변수명, findBy변수명GreaterThanEqual ...
+
+검색 관련
+findBy칼럼명Containing
+findBy칼럼명StartingWith
+findBy칼럼명EndingWith
