@@ -1,8 +1,11 @@
 package pack.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -26,4 +29,7 @@ public class Buser {
 	
 	@Column(name="buser_name")
 	private String buserName;
+	
+//	@OneToMany(mappedBy = "buser")
+//	private List<Jikwon> list;
 }

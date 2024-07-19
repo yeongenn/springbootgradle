@@ -25,11 +25,7 @@ public class Jikwon {
 	
 	@Column(name="jikwon_pay")
 	private int pay;
-	
-//	@Column(name="buser_num")
-//	private int buserNum;
-	
-	//JOIN
+
 	@ManyToOne(fetch = FetchType.EAGER) // 테이블 연관관계
 	@JoinColumn(name="buser_num", referencedColumnName = "buser_no")
 	private Buser buser;

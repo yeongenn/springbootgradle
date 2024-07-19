@@ -78,6 +78,7 @@ public class Springweb14DbJpaRApplication {
 		join문 포함된 쿼리로 한번, join 대상 테이블 한번
 		너무 비효율적이지 않나?
 		fetch join 이라는게 있던데...
+		fetch join 쓰고 안 쓰고 차이는?
 		 */
 
 	}
