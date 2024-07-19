@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/list.html</title>
+</head>
+<body>
+<h3>회원 목록 (@MVC - JPA)</h3>
+<a th:href="@{/insert}">추가</a>
+<br>
+<br>
+<table>
+	<tr>
+		<th>번호</th><th>이름</th><th>주소</th><th>수정/삭제</th>
+	</tr>
+	<th:block th:if="${list.size > 0}">
+	<tr th:each="data:${list}">
+		<td>[[${data.num}]]</td>
+		<td>[[${data.name}]]</td>
+		<td>[[${data.addr}]]</td>
+		<td>
+			<a th:href="@{/update(num=${data.num})}">수정</a>&nbsp;&nbsp;
+			<a th:href="@{/delete(num=${data.num})}">삭제</a>
+		</td>
+	</tr>
+	</th:block>
+</table>
+<br>
+<a th:href="@{/}">메인</a>
+</body>
+</html>
