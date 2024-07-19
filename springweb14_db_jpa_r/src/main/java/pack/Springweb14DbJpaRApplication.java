@@ -34,7 +34,8 @@ public class Springweb14DbJpaRApplication {
 	}
 	
 	private void selectJikwon() {
-		System.out.println("전체 직원 자료 읽기 - 기본 지원 findAll()");
+		//System.out.println("전체 직원 자료 읽기 - 기본 지원 findAll()");
+		System.out.println("전체 직원 자료 읽기 - 기본 지원 findAll() Override");
 		List<Jikwon> jikwonList = jikwonRepository.findAll();
 		
 		for(Jikwon j : jikwonList) {

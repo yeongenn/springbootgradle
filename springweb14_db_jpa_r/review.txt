@@ -1,1 +1,8 @@
 sprinbweb14_db_jpa_r
+
+### @EntityGraph
+fetch join문 간편하게 실행할 수 있는 어노테이션
+left outer join만 지원한다
+
+@EntityGraph(attributePaths = {""})
+attributePaths에는 join되는 엔티티 넣어주면 된다

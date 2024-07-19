@@ -2,6 +2,7 @@ package pack.model;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,6 +18,7 @@ public interface JikwonCrudRepository extends JpaRepository<Jikwon, Integer>{
 	
 	// fetch join
 	//@Query("select j from Jikwon j join fetch j.buser b where b.buserName = ?1")
+	//@EntityGraph(attributePaths = {"buser"}) // fetch join문 간단하게 쓰기~
 	List<Jikwon> findByBuserBuserName(String buserName); // findByBuserName 이라고 이름지었더니 에러
 	
 	/*
@@ -26,5 +28,8 @@ public interface JikwonCrudRepository extends JpaRepository<Jikwon, Integer>{
 	 fetch join문 거니까 메서드 이름은 상관없어지기는 하더라
 	 */
 
+	@Override
+	@EntityGraph(attributePaths = {"buser"})
+	List<Jikwon> findAll(); // findAll 메서드 재정의
 
 }
