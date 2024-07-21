@@ -1,0 +1,21 @@
+## example codes using database 'project'
+
+## @RestController
+JSON 타입으로 반환
+우리조 프로젝트는 JSON이 필수인데,,, 해봐야하지 않겟숴?
+
+##
+JPQL로는 어림도 없어보이니까 native query로
+반환타입을 뭐로 해야하나???
+일단 문제는 엔티티에 없는 칼럼을 조회하는 것
+구글링~
+native query 쓰면서 엔티티에 없는 칼럼에 결과를 맵핑하고 싶으면 방법이 2가지가 있단다
+namednativequery랑 반환타입을 interface DTO로 설정하는 것
+전자는 이해를 바로 못해서 다음에 해보기로
+조회를 원하는 칼럼명으로 getter 추상메서드 선언해서 interface DTO 생성하고
+나머지 코드 작성하니까 된다...! 뭐지 원리가 뭐지 뭐야 뭐야
+
+https://cocoiscat.tistory.com/169
+
+##
+ByGubun, resultRatio 로도 다 해보기!
