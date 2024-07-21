@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>templates/list2.html</title>
+</head>
+<body>
+list2 list2 list2 list2<br>
+list2 list2 list2 list2<br>
+list2 list2 list2 list2<br>
+<br>
+<br>
+<h3>담당 고객들~</h3><br>
+<br>
+<table border="1">
+    <tr>
+        <th>고객번호</th>
+        <th>고객명</th>
+        <th>고객전화</th>
+        <th>담당직원</th>
+    </tr>
+
+    <!-- 데이터가 있는 경우에만 출력 -->
+    <th:block th:if="${datas.size > 0}">
+        <tr th:each="gogek:${datas}">
+            <td th:text="${gogek.no}"></td>
+            <td th:text="${gogek.name}"></td>
+            <td th:text="${gogek.gogekTel}"></td>
+            <td th:text="${gogek.jikwon.name}"></td>
+        </tr>
+        <tr>
+            <td colspan="4" th:text="|담당 고객 수 : ${datas.size}|"></td>
+        </tr>
+    </th:block>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+## sql 관련
+mariadb에서 over (partition by )가 된다길래 해봤는데
+아무리 시도해봐도 안되길래 뭐가 문제인가 했더니
+버전 10.2 전까지는 못 쓴단다 쩝
+
+## 서브쿼리 연습(?)
+그냥 연습해보자 싶어서 좀좀따리 구글링해서 연습해보는 중
+- 평균 연봉보다 늪은 연봉받는 직원
+- 담당 고객이 한명이라도 있는 직원 출력
+
+/*
+    select
+        jikwon_no,
+        jikwon_name,
+        jikwon_jik,
+        jikwon_pay
+    from
+        jikwon
+    where
+        jikwon_pay  >=
+                    (
+                     select
+                        avg(jikwon_pay)
+                     from
+                        jikwon
+                     )
+
+*/
+
+/*
+    select
+        *
+    from
+        jikwon
+    where
+        (
+         select
+            count(gogek_no)
+         from
+            gogek
+         where
+            gogek_damsano = jikwon_no) > 0
+    order by
+        jikwon_no
+*/
+
+## JPQL 함수 관련
+가급적이면 SQL을 단순하게 사용하고, 로직들은 애플리케이션에서 처리하는 것이 좋단다~

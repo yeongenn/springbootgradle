@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>templates/list.html</title>
+</head>
+<body>
+list list list list<br>
+list list list list<br>
+list list list list<br>
+<br>
+<br>
+<h3>해당 부서 직원들~</h3><br>
+<br>
+<table border="1">
+    <tr>
+        <th>사번</th>
+        <th>사원명</th>
+        <th>직급</th>
+        <th>부서</th>
+        <th>연봉</th>
+    </tr>
+
+    <!-- 데이터가 있는 경우에만 출력 -->
+    <th:block th:if="${datas.size > 0}">
+        <tr th:each="jikwon:${datas}">
+            <td th:text="${jikwon.no}"></td>
+            <!-- 사원명 클릭하면 담당 고객 출력하기 -->
+            <td>
+                <a th:href="@{/test3(no=${jikwon.no})}" th:text="${jikwon.name}">이름</a>
+            </td>
+            <td th:text="${jikwon.jik}"></td>
+            <td th:text="${jikwon.buser.name}"></td>
+            <td th:text="${jikwon.pay}"></td>
+        </tr>
+        <tr>
+            <td colspan="5" th:text="|부서 소속 직원 수 : ${datas.size}|"></td>
+        </tr>
+    </th:block>
+</table>
+
+
+</body>
+</html>
