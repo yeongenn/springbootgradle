@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/detail.html</title>
+<script type="text/javascript">
+window.onload = function(){
+	// 목록
+	document.querySelector("#btnList").onclick = function(){
+		location.href="list";
+	}
+	
+	// 수정
+	document.querySelector("#btnUpdate").onclick = function(){
+		if(confirm("정말 수정할까욥?")){
+			// 입력자료 검사 생략~
+			frm.action="update";
+			frm.method="post";
+			frm.submit();
+		}
+	}
+	
+	// 삭제
+	document.querySelector("#btnDelete").onclick = function(){
+		if(confirm("정말 삭제할까욥?")){
+			// 입력자료 검사 생략~
+			frm.action="delete";
+			frm.method="get";
+			frm.submit();
+		}
+	}
+}
+</script>
+</head>
+<body>
+detail detail detail detail<br>
+detail detail detail detail<br>
+detail detail detail detail<br>
+<br>
+<br>
+<h3>** 상세 보기 **</h3>
+<form name="frm" th:object="${board}">
+	글번호 : [[${board.num}]]
+	<input type="hidden" th:field="*{num}"><br>
+	작성자 : <input type="text" th:field="*{author}"><br>
+	글제목 : <input type="text" th:field="*{title}"><br>
+	글내용 : <textarea rows="5" cols="50" th:field="*{content}"></textarea><br>
+	작성일 : [[${board.bwrite}]]<br>
+	조회수 : [[${board.readcnt}]]<br>
+	<input type="button" value="목 록" id="btnList">&nbsp;&nbsp;
+	<input type="button" value="수 정" id="btnUpdate">&nbsp;&nbsp;
+	<input type="button" value="삭 제" id="btnDelete">
+</form>
+</body>
+</html>
