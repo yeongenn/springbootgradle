@@ -29,7 +29,7 @@ public class MemProcess {
 		try {
 			// 해당번호 mem 이미 존재
 			Mem mem = (Mem) repository.findById(bean.getNum()).get();
-			System.out.println("mem : " + mem);
+//			System.out.println("mem : " + mem);
 			return "이미 입력된 번호입니당";
 		} catch (Exception e) {
 			try {
@@ -39,17 +39,46 @@ public class MemProcess {
 				mem.setName(bean.getName());
 				mem.setAddr(bean.getAddr());
 				mem = repository.save(mem);
-				return "추가 자료 입력 성공~!~!";
+				return "성공";
 			} catch (Exception e2) {
-				return "입력 오류" + e2.getMessage();
+				return "입력 오류 " + e2.getMessage();
 			}
 		}
 		
 	}
-	
+	// 자료 1개 읽어오기(수정, 삭제용)
+	public Mem getData(String num) {
+		Mem mem = repository.findByNum(num);
+		return mem;
+	}
+	 
 	// 자료 수정
+	public String update(MemBean bean) {
+		
+		try {
+			Mem mem = new Mem();
+			mem.setNum(bean.getNum());
+			mem.setName(bean.getName());
+			mem.setAddr(bean.getAddr());
+			repository.save(mem);
+			return "성공";
+		} catch (Exception e2) {
+			return "수정 오류 " + e2.getMessage();
+		}
+		
+	}
 	
 	
 	// 자료 삭제
+	public String delete(int num) {
+			
+		try {
+			repository.deleteById(num);
+			return "성공";
+		} catch (Exception e2) {
+			return "삭제 오류 " + e2.getMessage();
+		}
+			
+	}
 }
 
