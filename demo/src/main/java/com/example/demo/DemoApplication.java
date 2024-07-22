@@ -24,17 +24,28 @@ public class DemoApplication {
 
 	public void execute(){
 		getResultByYear("ULS", "ULS", "2024");
+		getResultByGubun("ULS", "2024");
 	}
 
 	public void getResultByYear(String hometeam, String awayteam, String year){
 		List<MatchResultDto> list = matchRepository.matchResultByYear(hometeam, awayteam, year);
 		for(MatchResultDto dto : list){
 			System.out.println(dto.getWhole_game() + "\t" +
-								dto.getPoss_percent() + "\t" +
-								dto.getSot_percent() + "\t" +
-								dto.getTac_percent());
+								Math.round(dto.getPoss_percent()*100)/100.0 + "\t" +
+								Math.round(dto.getSot_percent()*100)/100.0 + "\t" +
+								Math.round(dto.getTac_percent()*100)/100.0);
 		}
 
+	}
+	
+	public void getResultByGubun(String teamcode, String year) {
+		List<MatchResultDto> list = matchRepository.matchResultByGubun(teamcode, year);
+		for(MatchResultDto dto : list){
+			System.out.println(dto.getWhole_game() + "\t" +
+								Math.round(dto.getPoss_percent()*100)/100.0 + "\t" +
+								Math.round(dto.getSot_percent()*100)/100.0 + "\t" +
+								Math.round(dto.getTac_percent()*100)/100.0);
+		}
 	}
 
 }
