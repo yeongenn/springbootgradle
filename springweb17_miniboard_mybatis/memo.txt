@@ -1,0 +1,27 @@
+240722
+
+맵핑되는 url이 없는데 white 404 ~가 아니라 error.html로 맵핑되어서 나온다
+spring boot에서 에러페이지를 처리하는 규칙이 있단다
+
+spring boot error page
+
+https://velog.io/@ililil9482/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-%EC%97%90%EB%9F%AC-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%B2%98%EB%A6%AC
+
+https://victorydntmd.tistory.com/339
+
+---
+
+database gooddb
+
+create table springboard(
+
+num int primary key,
+author varchar(10) not null,
+title varchar(30) not null,
+content text,
+bwrite datetime default now(),
+readcnt int default 0)
+
+---
+
+springweb17_miniboard_mybatis <- jpa 버전으로도 해보기
