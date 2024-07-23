@@ -17,5 +17,8 @@ namednativequery랑 반환타입을 interface DTO로 설정하는 것
 
 https://cocoiscat.tistory.com/169
 
+# interface-based DTO
+https://thorben-janssen.com/spring-data-jpa-dto-native-queries/
+
 ##
 ByGubun, resultRatio 로도 다 해보기!
