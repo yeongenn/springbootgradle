@@ -1,0 +1,40 @@
+240723
+
+미니게시판 - JPA 사용
+
+---
+
+벌크 연산 bulk operation
+https://dev-coco.tistory.com/169#head4
+
+---
+
+/*
+ JPA는 내부적으로 벌크 연산을 한다
+ 영속성 컨텍스트와에 있는 자료(Board)와
+ DB에 있는 Board(springboard) 값이 다를 수 있다
+ 따라서 벌크 연산 수행 후 영속성 컨텍스트에 있는 쿼리를 refresh(clear)해줘야 한다
+ 
+ @Modifying(clearAutomatically = true) 가 그 역할을 수행
+ 1차 캐시를 비워주는 설정으로 영속성 컨텍스트의 쿼리를 초기화한다
+ */
+ 
+ @Modifying attributes
+ clearAutomatically = true / false(default)
+ flushAutomatically = true / false(default)
+ 
+ ---
+ 
+ @Transactional
+ 
+ ---
+ 
+ Optional
+ https://velog.io/@kjgi73k/JAVA-Optional%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90
+ 
+ ---
+ 
+ ## @ModelAttribute
+ https://jaykaybaek.tistory.com/15
+ 
+ 어노테이션 쓰지않고 formbean으로도 가능하던데?
