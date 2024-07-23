@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>templates/list.html</title>
+</head>
+<body>
+list list list list<br>
+<br>
+<br>
+<h3>문제풀이~</h3>
+<table border="1">
+    <tr>
+        <th>사  번</th>
+        <th>사원명</th>
+        <th>직  급</th>
+        <th>연  봉</th>
+        <th>평  가</th>
+    </tr>
+    <th:block th:if="${list.size > 0}">
+        <tr th:each="data:${list}">
+            <td th:text="${data.no}">no</td>
+            <td th:text="${data.name}">name</td>
+            <td th:text="${data.jikwonJik}">jik</td>
+            <td th:text="${data.pay}">pay</td>
+            <td th:text="${data.jikwonRating}">rating</td>
+        </tr>
+        <tr>
+            <td colspan="5" th:text="|평균 연봉은 ${avg}천만원 입니당|"></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

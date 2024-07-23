@@ -1,0 +1,11 @@
+240723
+
+문제풀이 JPA 사용
+
+
+
+## controller에서 클라이언트 요청값 받기
+https://circle-square.tistory.com/41
+
+# @RequestParam 
+파라미터 map으로 전달받기
