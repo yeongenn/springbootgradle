@@ -27,7 +27,7 @@ list list list list<br>
             <td th:text="${jikwon.no}"></td>
             <!-- 사원명 클릭하면 담당 고객 출력하기 -->
             <td>
-                <a th:href="@{/test3(no=${jikwon.no})}" th:text="${jikwon.name}">이름</a>
+                <a th:href="@{/test3(no=${jikwon.no})}" th:text="${jikwon.name}" target="myFrame">이름</a>
             </td>
             <td th:text="${jikwon.jik}"></td>
             <td th:text="${jikwon.buser.name}"></td>
@@ -38,7 +38,11 @@ list list list list<br>
         </tr>
     </th:block>
 </table>
+<br>
+<br>
 
+<!-- src 값 여부에 따라 iframe 기본 화면 달라진다 -->
+<iframe th:src="@{/test3}" name="myFrame" width="500" height="500" frameborder="0"></iframe>
 
 </body>
 </html>

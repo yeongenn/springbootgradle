@@ -37,7 +37,7 @@ public class TestController {
 
     @GetMapping("test3")
     public String test3(Model model,
-                        @RequestParam("no") String jikwonNo){
+                        @RequestParam(value="no", defaultValue = "0") String jikwonNo){
         List<Gogek> gogekList = testDao.getGogekByJikwon(jikwonNo);
         model.addAttribute("datas", gogekList);
         return "list2";

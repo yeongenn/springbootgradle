@@ -46,3 +46,6 @@ mariadb에서 over (partition by )가 된다길래 해봤는데
 
 ## JPQL 함수 관련
 가급적이면 SQL을 단순하게 사용하고, 로직들은 애플리케이션에서 처리하는 것이 좋단다~
+
+## th:if, th:unless + iframe
+https://jg-han.tistory.com/101
