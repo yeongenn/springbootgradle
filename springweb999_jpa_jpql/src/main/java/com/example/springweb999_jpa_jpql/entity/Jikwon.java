@@ -1,10 +1,6 @@
 package com.example.springweb999_jpa_jpql.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,7 +30,7 @@ public class Jikwon {
 	@Column(name="jikwon_pay")
 	private int pay;
 	
-	@ManyToOne
-	@JoinColumn(name="buser_num", referencedColumnName = "buser_no")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="buser_num")
 	private Buser buser;
 }
