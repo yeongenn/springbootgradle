@@ -13,12 +13,15 @@ public class JikwonDao{
 
     @Autowired
     private JikwonRepository jikwonRepository;
+    
+    @Autowired
+    private BuserRepository buserRepository;
 
     // 일반 join
     @Transactional(readOnly = true)
     public List<Jikwon> getJikwonByBuser(String bname){
         List<Jikwon> jList = jikwonRepository.findByBuserBnoJoin(bname);
-        Hibernate.initialize(jList.get(0).getBuser());
+        Hibernate.initialize(jList.get(1).getBuser()); // 인덱스 번호는 상관 X
         return jList;
     }
 
@@ -29,7 +32,14 @@ public class JikwonDao{
         Hibernate.initialize(jList.get(0).getBuser());
         return jList;
     }
-
+    
+    // proxy 확인용
+    @Transactional
+    public Jikwon getJikwonByNo(int no) {
+    	Jikwon jikwon = jikwonRepository.findByNo(no);
+    	Hibernate.initialize(jikwon);
+    	return jikwon;
+    }
 
 
 }

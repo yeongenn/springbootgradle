@@ -18,5 +18,8 @@ public interface JikwonRepository extends JpaRepository<Jikwon, Integer>{
 	// fetch join
 	@Query("select j from Jikwon j join fetch j.buser b where b.bname = ?1")
 	List<Jikwon> findByBuserBnoFetchJoin(String bname);
+	
+	//proxy 확인용
+	Jikwon findByNo(int no);
 
 }

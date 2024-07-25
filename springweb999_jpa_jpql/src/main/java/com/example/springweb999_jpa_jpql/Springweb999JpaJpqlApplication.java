@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.springweb999_jpa_jpql.repository.JikwonDao;
+
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.springweb999_jpa_jpql.entity.Buser;
 import com.example.springweb999_jpa_jpql.entity.Jikwon;
 import com.example.springweb999_jpa_jpql.repository.BuserRepository;
 import com.example.springweb999_jpa_jpql.repository.JikwonRepository;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 
 @SpringBootApplication
 public class Springweb999JpaJpqlApplication {
@@ -18,7 +24,9 @@ public class Springweb999JpaJpqlApplication {
 	// 확인용 코드 전체 과정 참고 사이트
 	//https://gilssang97.tistory.com/45
 	
-	// 240724 FetchType=LAZY로 실습
+	// 240724 N:1, FetchType=LAZY로 실습
+	
+	// 240725 proxy - checkProxy()
 	
 	@Autowired
 	private JikwonRepository jikwonRepository;
@@ -28,6 +36,13 @@ public class Springweb999JpaJpqlApplication {
 
 	@Autowired
 	private JikwonDao jikwonDao;
+	
+	@Autowired
+	private EntityManagerFactory emf;
+
+	
+	
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(Springweb999JpaJpqlApplication.class, args)
@@ -55,9 +70,16 @@ public class Springweb999JpaJpqlApplication {
 		//getJikwonByBuserJoin("전산부");
 
 		// 3. fetch join
-		getJikwonByBuserFetchJoin("전산부");
+		//getJikwonByBuserFetchJoin("전산부");
+		
+		// --------------------------------
+		checkProxy();
 	}
 	
+	
+	
+	
+	// join X
 	public void getJikwonByBuser(String bname) {
 		List<Jikwon> jikwonList = jikwonRepository.findByBuserBname(bname);
 		for(Jikwon j : jikwonList) {
@@ -69,6 +91,8 @@ public class Springweb999JpaJpqlApplication {
 		}
 	}
 
+	
+	// 일반 join
 	public void getJikwonByBuserJoin(String bname){
 		/*
 		ArrayList<Jikwon> jikwonList = (ArrayList<Jikwon>) jikwonRepository.findByBuserBnoJoin(bname);
@@ -90,26 +114,28 @@ public class Springweb999JpaJpqlApplication {
 		*/
 
 		ArrayList<Jikwon> jikwonList = (ArrayList<Jikwon>) jikwonDao.getJikwonByBuser(bname);
-		System.out.println(jikwonList.get(0).getBuser().getClass().getName());
 		/*
-		악!
 		dao 클래스 따로 만들어서
 		@Transactional 달아주고
-		Hibernate.Ini~ 통해서 영속성 컨텍스트 초기화 시켜준 다음에 실행하니까 프록시객체 나온다!
+		Hibernate.initialize(Object proxy) 통해서 영속성 컨텍스트 초기화 시켜준 다음에 실행하니까 프록시객체 나온다!
 		com.example.springweb999_jpa_jpql.entity.Buser$HibernateProxy$YqKkCrPZ
-		꺅!
+
 		위에 참고 사이트 + 아래 사이트 다시 한번 읽어보기
 		https://jiwondev.tistory.com/230
 		 */
 		for(Jikwon j : jikwonList) {
+//			System.out.println(j.getBuser().getClass().getName()); // 전부 동일한 hibernate proxy가 찍혀 나온다
 			System.out.println(j.getNo() + "\t" +
 								j.getName() + "\t" +
 								j.getJik() + "\t" +
-								j.getBuser().getBname() + "\t" +
-								j.getPay());
+								j.getPay() + "\t" +
+								j.getBuser().getBname());
 		}
 	}
 
+	
+	
+	// fetch join
 	public void getJikwonByBuserFetchJoin(String bname){
 		/*
 		ArrayList<Jikwon> jikwonList = (ArrayList<Jikwon>) jikwonRepository.findByBuserBnoFetchJoin(bname);
@@ -142,5 +168,30 @@ public class Springweb999JpaJpqlApplication {
 		}
 
 	}
+	
+	
+	public void checkProxy() {
+		//https://kha0213.github.io/jpa/jpa-proxy/
+		
+		EntityManager em = emf.createEntityManager();
+		
+		Jikwon jikwon = jikwonDao.getJikwonByNo(10);
+		Buser buser = new Buser();
+		buser = jikwon.getBuser();
+		
+		Jikwon jikwon2 = em.find(Jikwon.class, jikwon.getNo());
+		
+//		System.out.println("jikwon2 : " + jikwon2.getClass().getName());
+//		System.out.println("jikwon2.getBuser() : " + jikwon2.getBuser().getClass().getName());
+
+		final Buser proxyBuser = jikwon2.getBuser(); // proxy
+		final Buser findBuser = em.find(Buser.class, buser.getBno()); // 이 코드가 jikwon2 전에 선언되면 아래 코드로 프록시객체가 아닌 원본 객체가 출력된다
+		
+		System.out.println("proxyBuser : " + proxyBuser.getClass().getName()); // Buser$HibernateProxy$bvhjkz27
+		System.out.println("findBuser : " + findBuser.getClass().getName()); // Buser$HibernateProxy$bvhjkz27
+		System.out.println("proxyBuser == findBuser : " + (findBuser == proxyBuser)); // true
+		
+	}
+	 
 
 }
