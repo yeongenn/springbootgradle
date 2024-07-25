@@ -14,6 +14,7 @@ import pack.entity.Emp;
 public interface EmpRepository extends JpaRepository<Emp, Integer> {
 	// query method
 	public List<Emp> findAllByOrderByEmpnoAsc();
+	public List<Emp> findAllByOrderByEmpnoDesc();
 	
 	// JPQL
 	@Query("select e from Emp e order by e.empno asc")

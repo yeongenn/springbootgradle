@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/employee/elist.html</title>
+</head>
+<body>
+<h3>직원 목록</h3>
+<table>
+	<tr>
+		<th>직원번호</th><th>직원명</th><th>부서번호</th><th>부서명</th>
+	</tr>
+	<tr th:each="emp:${list}">
+		<td th:text="${emp.empno}">empno</td>
+		<td>[[${emp.ename}]]</td>
+		<td th:text="${emp.dept.deptno}">deptno</td>
+		<!-- 부서명 클릭하면 해당 부서 소속 직원 출력 -->
+		<td>
+			<a th:href="@{/employee/dept(deptno=${emp.dept.deptno})}">[[${emp.dept.dname}]]</a>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

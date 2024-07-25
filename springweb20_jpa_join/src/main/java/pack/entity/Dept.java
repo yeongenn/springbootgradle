@@ -28,7 +28,7 @@ public class Dept {
 	
 	private String loc;
 	
-	@OneToMany(mappedBy = "dept", fetch = FetchType.EAGER) // fetch = FetchType.EAGER
+	@OneToMany(mappedBy = "dept", fetch = FetchType.EAGER)
 	@Builder.Default // Emp 엔티티가 생성될 때 empList를 초기화
 	private List<Emp> empList = new ArrayList<Emp>();
 }
