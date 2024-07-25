@@ -17,6 +17,14 @@ public class JikwonDao{
     @Autowired
     private BuserRepository buserRepository;
 
+    // join X
+    @Transactional(readOnly = true)
+    public List<Jikwon> getJikwonByNoJoin(int no){
+        List<Jikwon> jList = jikwonRepository.findByNoLessThanEqual(no);
+        Hibernate.initialize(jList.get(0).getBuser()); // 인덱스 번호는 상관 X
+        return jList;
+    }
+
     // 일반 join
     @Transactional(readOnly = true)
     public List<Jikwon> getJikwonByBuser(String bname){

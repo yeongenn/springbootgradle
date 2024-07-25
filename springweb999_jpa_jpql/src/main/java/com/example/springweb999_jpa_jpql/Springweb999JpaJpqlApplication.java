@@ -64,7 +64,7 @@ public class Springweb999JpaJpqlApplication {
 		
 		// 부서별 직원 - from jikwon <- N:1
 		// 1. join X
-		//getJikwonByBuser("전산부");
+		getJikwonByNo(5); // 직원번호로 직원 가져오기
 
 		// 2. 일반 join
 		//getJikwonByBuserJoin("전산부");
@@ -73,21 +73,23 @@ public class Springweb999JpaJpqlApplication {
 		//getJikwonByBuserFetchJoin("전산부");
 		
 		// --------------------------------
-		checkProxy();
+		//checkProxy();
 	}
 	
 	
 	
 	
 	// join X
-	public void getJikwonByBuser(String bname) {
-		List<Jikwon> jikwonList = jikwonRepository.findByBuserBname(bname);
+	// 직원번호 5 이하 직원
+	public void getJikwonByNo(int no) {
+		List<Jikwon> jikwonList = jikwonDao.getJikwonByNoJoin(no);
+
 		for(Jikwon j : jikwonList) {
 			System.out.println(j.getNo() + "\t" +
-								j.getName() + "\t" +
-								j.getJik() + "\t" +
-								j.getBuser().getBname() + "\t" +
-								j.getPay());
+					j.getName() + "\t" +
+					j.getJik() + "\t" +
+					j.getPay() + "\t");
+					//j.getBuser().getBname());
 		}
 	}
 
@@ -124,12 +126,13 @@ public class Springweb999JpaJpqlApplication {
 		https://jiwondev.tistory.com/230
 		 */
 		for(Jikwon j : jikwonList) {
-//			System.out.println(j.getBuser().getClass().getName()); // 전부 동일한 hibernate proxy가 찍혀 나온다
 			System.out.println(j.getNo() + "\t" +
-								j.getName() + "\t" +
-								j.getJik() + "\t" +
-								j.getPay() + "\t" +
-								j.getBuser().getBname());
+					j.getName() + "\t" +
+					j.getJik() + "\t" +
+					j.getPay() + "\t" +
+					j.getBuser().getClass().getName());
+			System.out.println("------------------------------------------------------------");
+			System.out.println(j.getBuser().getBname() + "\t" + j.getBuser().getClass().getName());
 		}
 	}
 
@@ -163,8 +166,10 @@ public class Springweb999JpaJpqlApplication {
 			System.out.println(j.getNo() + "\t" +
 					j.getName() + "\t" +
 					j.getJik() + "\t" +
-					j.getBuser().getBname() + "\t" +
-					j.getPay());
+					j.getPay() + "\t" +
+					j.getBuser().getClass().getName());
+			System.out.println("------------------------------------------------------------");
+			System.out.println(j.getBuser().getBname());
 		}
 
 	}

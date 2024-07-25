@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface JikwonRepository extends JpaRepository<Jikwon, Integer>{
 	// join X
-	List<Jikwon> findByBuserBname(String bname);
+	List<Jikwon> findByNoLessThanEqual(int no);
 
 	// 일반 join
 	@Query("select j from Jikwon j join j.buser b where b.bname = ?1")
