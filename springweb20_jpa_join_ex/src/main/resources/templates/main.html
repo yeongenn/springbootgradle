@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/main.html</title>
+</head>
+<body>
+<h3>직원 리스트</h3>
+<table border="1">
+	 <tr>
+        <th>사번</th>
+        <th>사원명</th>
+        <th>직급</th>
+        <th>부서</th>
+        <th>관리고객여부</th>
+    </tr>
+    <tr th:each="jikwon:${list}">
+        <td th:text="${jikwon.jno}">jno</td>
+        <!-- 사원명 클릭하면 담당 고객 출력하기 -->
+        <th:block>
+        <td  th:if="${jikwon.hasGogek == 'O'}">
+        	<a th:href="@{/mygogek(jno=${jikwon.jno})}" th:text="${jikwon.jname}">jname</a>
+        </td>
+        <td th:unless="${jikwon.hasGogek == 'O'}" th:text="${jikwon.jname}">jname</td>
+        </th:block>
+        <td th:text="${jikwon.jik}">jik</td>
+        <td th:text="${jikwon.bname}">bname</td>
+        <td th:text="${jikwon.hasGogek}">hasGogek</td>
+    </tr>
+</table>
+</body>
+</html>
