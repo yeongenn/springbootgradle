@@ -64,7 +64,7 @@ public class Springweb999JpaJpqlApplication {
 		
 		// 부서별 직원 - from jikwon <- N:1
 		// 1. join X
-		getJikwonByNo(5); // 직원번호로 직원 가져오기
+		//getJikwonByNo(5); // 직원번호로 직원 가져오기
 
 		// 2. 일반 join
 		//getJikwonByBuserJoin("전산부");
@@ -72,8 +72,11 @@ public class Springweb999JpaJpqlApplication {
 		// 3. fetch join
 		//getJikwonByBuserFetchJoin("전산부");
 		
-		// --------------------------------
+		// ------------------------------------------------------
 		//checkProxy();
+		
+		// ------------------------------------------------------
+		joinTest(5);
 	}
 	
 	
@@ -134,9 +137,7 @@ public class Springweb999JpaJpqlApplication {
 			System.out.println("------------------------------------------------------------");
 			System.out.println(j.getBuser().getBname() + "\t" + j.getBuser().getClass().getName());
 		}
-	}
-
-	
+	}	
 	
 	// fetch join
 	public void getJikwonByBuserFetchJoin(String bname){
@@ -195,6 +196,28 @@ public class Springweb999JpaJpqlApplication {
 		System.out.println("proxyBuser : " + proxyBuser.getClass().getName()); // Buser$HibernateProxy$bvhjkz27
 		System.out.println("findBuser : " + findBuser.getClass().getName()); // Buser$HibernateProxy$bvhjkz27
 		System.out.println("proxyBuser == findBuser : " + (findBuser == proxyBuser)); // true
+		
+	}
+	
+	public void joinTest(int no) {
+		// EntityManager
+		EntityManager em = emf.createEntityManager();
+		
+		String query = "select j from Jikwon j where j.no < " + no;
+		List<Jikwon> resultList = em.createQuery(query, Jikwon.class).getResultList();
+		
+		//System.out.println(resultList.get(0).getBuser().getClass().getName()); // Buser 프록시 객체
+		
+		//System.out.println(resultList.get(0).getBuser().getBname()); // jikwon 스캔하고 추가로 buser name 얻기위해서 buser 한번 스캔
+		
+		for(Jikwon j : resultList) {
+			System.out.println(j.getNo() + "\t" +
+								j.getName() + "\t" +
+								j.getJik() + "\t" +
+								j.getPay() + "\t" +
+								j.getBuser().getBname());
+		}
+		
 		
 	}
 	 
