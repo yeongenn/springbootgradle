@@ -4,6 +4,8 @@ import com.example.springweb999_eun.model.Gogek;
 import com.example.springweb999_eun.model.GogekRepository;
 import com.example.springweb999_eun.model.Jikwon;
 import com.example.springweb999_eun.model.JikwonRepository;
+import com.example.springweb999_eun.model.TestDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,6 +39,9 @@ public class Springweb999EunApplication {
 
 	@Autowired
 	private GogekRepository gogekRepository;
+	
+	@Autowired
+	private TestDao testDao;
 
 	private void execute(){
 		
@@ -60,7 +65,8 @@ public class Springweb999EunApplication {
 	}
 
 	private void getJikwonByBuser(String buserName){
-		List<Jikwon> jList = jikwonRepository.findByBuserName(buserName);
+		//List<Jikwon> jList = jikwonRepository.findByBuserName(buserName); // jpaRepository 
+		List<Jikwon> jList = testDao.getJikwonByBuser(buserName); // dao (has a - jpaRepository)
 		for(Jikwon j : jList){
 			System.out.println(j.getNo() + "\t" +
 								j.getName() + "\t" +

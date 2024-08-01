@@ -49,3 +49,6 @@ mariadb에서 over (partition by )가 된다길래 해봤는데
 
 ## th:if, th:unless + iframe
 https://jg-han.tistory.com/101
+
+## 240801
+AJAX로 JSON 데이터 가져오기 (springboot + react) 
