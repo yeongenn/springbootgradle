@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="member">
+	<!-- resultType에 alias로 입력 가능하다 -->
+	<select id="getList" resultType="memberDto">
+		select num, name, addr from memrest
+	</select>
+	
+	<select id="getData" parameterType="int" resultType="memberDto">
+		select num, name, addr from memrest where num = #{num}
+	</select>
+
+</mapper>
