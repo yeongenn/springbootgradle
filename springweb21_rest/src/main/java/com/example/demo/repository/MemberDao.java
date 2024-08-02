@@ -19,5 +19,25 @@ public class MemberDao {
 		
 		return session.selectList("member.getList");
 	}
+	
+	// 자료 추가
+	public void insert(MemberDto dto) {
+		session.insert("member.insert", dto);
+	}
+	
+	// 자료 1개 가져오기 - 수정용
+	public MemberDto getData(int num) {
+		return session.selectOne("member.getData", num);
+	}
+	
+	// 자료 수정
+	public void update(MemberDto dto) {
+		session.update("member.update", dto);
+	}
+	
+	// 자료 삭제
+	public void delete(int num) {
+		session.delete("member.delete", num);
+	}
 
 }

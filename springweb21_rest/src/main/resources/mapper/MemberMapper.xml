@@ -12,5 +12,17 @@
 	<select id="getData" parameterType="int" resultType="memberDto">
 		select num, name, addr from memrest where num = #{num}
 	</select>
+	
+	<insert id="insert" parameterType="memberDto">
+		insert into memrest (name, addr) values (#{name}, #{addr})
+	</insert>
+	
+	<update id="update" parameterType="memberDto">
+		update memrest set name = #{name}, addr = #{addr} where num = #{num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from memrest where num = #{num}
+	</delete>
 
 </mapper>
