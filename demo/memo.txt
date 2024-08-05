@@ -1,9 +1,5 @@
 ## example codes using database 'project'
 
-## @RestController
-JSON 타입으로 반환
-우리조 프로젝트는 JSON이 필수인데,,, 해봐야하지 않겟숴?
-
 ##
 JPQL로는 어림도 없어보이니까 native query로
 반환타입을 뭐로 해야하나???
@@ -22,3 +18,6 @@ https://thorben-janssen.com/spring-data-jpa-dto-native-queries/
 
 ##
 ByGubun, resultRatio 로도 다 해보기!
+
+## @RestController
+JSON 타입으로 반환
