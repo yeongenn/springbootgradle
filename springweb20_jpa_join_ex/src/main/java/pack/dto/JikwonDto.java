@@ -23,12 +23,15 @@ public class JikwonDto {
 	
 	private String hasGogek;
 	
+	private int pay;
+	
 	public static JikwonDto toDto(Jikwon jikwon) {
 		// Entity to DTO
 		return JikwonDto.builder()
 				.jno(jikwon.getJno())
 				.jname(jikwon.getJname())
 				.jik(jikwon.getJik())
+				.pay(jikwon.getPay())
 				.bname(jikwon.getBuser().getBname())
 				.hasGogek((jikwon.getGogekList().size() > 0) ? "O" : "X")
 				.build();

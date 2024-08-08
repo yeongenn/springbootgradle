@@ -1,0 +1,117 @@
+<!-- http://localhost:8080/test -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+    <style>
+      th {
+        background-color: yellowgreen;
+        color: white;
+        padding: 4px;
+      }
+      button {
+        border-radius: 10px;
+        padding: 5px;
+        background-color: yellowgreen;
+        border: none;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      직급 입력 : <input type="text" v-model="jikname" />&nbsp;
+      <button @click="showFunc">확 인</button>
+      <br />
+      <!-- 조건부 렌더링 -->
+      <table border="1" v-if="jikdatas.length > 0">
+        <thead>
+            <tr>
+            <th>사번</th>
+            <th>이름</th>
+            <th>부서명</th>
+            <th>직급</th>
+            <th>연봉</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(jikwon, index) in jikdatas" :key="index">
+                <td>{{jikwon.jno}}</td>
+                <td>{{jikwon.jname}}</td>
+                <td>{{jikwon.bname}}</td>
+                <td>{{jikwon.jik}}</td>
+                <td>{{jikwon.pay}}</td>
+            </tr>  
+            <tr>
+                <td colspan="5">인원수 : {{count}} / 연봉 평균 : {{avgPay}}만원</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      //
+      const { createApp } = Vue;
+
+      createApp({
+        data() {
+          return {
+            jikname: "",
+            jikdatas: [],
+            count: 0,
+            avgPay: 0,
+          };
+        },
+        methods: {
+          showFunc() {
+            //console.log(this.jikname);
+
+            // 파라미터가 여러개일때는...? - queryString, pathVariable 둘 다
+            // path variable로는...? fini
+            // axios로는...?
+            // 연봉평균 구할 때 arr.reduce...?
+
+            // query string
+            fetch("http://localhost:8080/test?jik=" + this.jikname)
+
+            // path variable
+            // fetch("http://localhost:8080/test/" + this.jikname)
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("AJAX 에러");
+                }
+                return response.json();
+              })
+              .then((jsonData) => {
+                this.jikdatas = jsonData;
+                this.count = this.jikdatas.length;
+
+                // 연봉 평균
+                let totalPay = 0;
+                this.jikdatas.map((jikwon) => {
+                  totalPay += jikwon.pay;
+                });
+                this.avgPay = Math.round((totalPay / this.count) * 10) / 10; // 소수점 두번째에서 반올림
+
+                /*
+                        this.avgPay = this.jikdatas.reduce((result, jd) => {
+                        return (result += jd.pay);
+                        }, 0);
+                        */
+              })
+              .catch((error) => {
+                console.log("읽어오기 에러 : ", error);
+              });
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
