@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pack.dto.JikwonDto;
+import pack.entity.Jikwon;
 import pack.repository.JikwonRepository;
 
 @RestController
@@ -22,12 +23,18 @@ public class TestRestController {
 	
 	// query String 
 	@GetMapping("/test")
-	public List<JikwonDto> test(@RequestParam("jik") String jik){ 
-		List<JikwonDto> jlist = jikwonRepository.findByJik(jik)
-				.stream()
-				.map(JikwonDto::toDto)
-				.toList();
-		return jlist;
+	public List<JikwonDto> test(@RequestParam(name="jik", required = false) String jik){  // default값으로 대리가 왜...?
+		//System.out.println(jik);
+		List<Jikwon> jlist;
+		if(jik == null || jik.equals("") || jik.equals(null)) { // jik.equals(null) 젤 먼저 쓰면 에러~
+			jlist = jikwonRepository.findAll(); // 직급 미입력시 전체 자료 출력
+		} else {
+			jlist = jikwonRepository.findByJik(jik);
+		}
+		List<JikwonDto> jDtoList = jlist.stream()
+										.map(JikwonDto::toDto)
+										.toList();
+		return jDtoList;
 	}
 	
 	// path variable
@@ -42,12 +49,15 @@ public class TestRestController {
 	
 	// 직급 미입력시 전체 자료 출력되도록
 	// Mapping을 따로 하기
-	// if문으로 호출되는 쿼리 다르게 하기
+	// if문으로 호출되는 쿼리 다르게 하기 -> fini
 	// @RequestParam에 default값 걸어주기 <- 뭘로 줘야 전체 출력되지...?
 	
 	// @PathVariable에 default값 주기??
 	// https://leeborn.tistory.com/entry/Spring-PathVariable-%EA%B8%B0%EB%B3%B8%EA%B0%92-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0
 	// https://gyumin-kim.github.io/optional-pathvariable/
+	
+	// 파라미터 여러개일 때는?
+	
 	
 
 }
