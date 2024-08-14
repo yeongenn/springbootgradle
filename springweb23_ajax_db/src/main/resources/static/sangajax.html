@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>static/sangajax.html</title>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function(){
+		document.querySelector("#btnShow").addEventListener("click", function(){
+		 	fetch("sangpums")
+		 	.then(res => {
+		 		if(!res.ok){
+		 			throw new Error("처리 오류 : 수신된 자료가 없음");
+		 		}
+		 		return res.json();
+		 	})
+		 	.then(sangpumdata => {
+		 		let str = "";
+		 		let sdatas = sangpumdata.datas;
+		 		
+		 		sdatas.forEach(arr => {
+		 			str += "<tr>";
+		 			str += "<td>" + arr["code"] + "</td>";
+		 			str += "<td>" + arr["sang"] + "</td>";
+		 			str += "<td>" + arr["su"] + "</td>";
+		 			str += "<td>" + arr["dan"] + "</td>";
+		 			str += "</tr>";
+		 		})
+		 		document.querySelector("tbody").innerHTML = str;
+		 	})
+		 	.catch(err => {
+		 		document.querySelector("#showErr").textContent = "에러 발생 : " + error.message;
+		 	})
+		});
+	});
+</script>
+</head>
+<body>
+	<h3>상품 정보 출력(@MVC + AJAX)</h3>
+	<button id="btnShow">보여주기</button>
+	<br>
+	<br>
+	<table>
+		<thead>
+			<tr>
+				<th>코드</th>
+				<th>상품명</th>
+				<th>수량</th>
+				<th>단가</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+	<br>
+	<div id="showErr"></div>
+</body>
+</html>
