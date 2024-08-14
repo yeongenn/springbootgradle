@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>public/ajaxtest2.html</title>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function(){
+		document.querySelector("#btnSingle").addEventListener("click", function(){
+			document.querySelector("#showData").innerHTML = "";
+			fetch('list?name=oscar')
+			.then(res => res.json())
+			.then(data => {
+				let str = data.name + "<br>";
+				str += data.skills[0] + " ";
+				str += data.skills[1];
+				document.querySelector("#showData").innerHTML = str;
+			})
+			.catch(() => {
+				document.querySelector("#showData").innerHTML = "<b>에러~!</b>";
+			});
+		});
+		
+		document.querySelector("#btnMulti").addEventListener("click", function(){
+			document.querySelector("#showData").innerHTML = "";
+			fetch('list2')
+			.then(res => res.json())
+			.then(data => {
+				let str = "<table>";
+				let list = data.datas;
+				//alert(list.length);					
+				list.forEach(function(objArr){
+					str += "<tr>";
+					str += "<td>" + objArr["name"] + "</td>";
+					str += "<td>" + objArr.age + "</td>";
+					str += "</tr>";
+				});
+				str += "</table>";
+				document.querySelector("#showData").innerHTML = str;
+			})
+			.catch(() => {
+				document.querySelector("#showData").innerHTML = "<b>에러~!</b>";
+			});
+		});
+		
+	});
+</script>
+</head>
+<body>
+	json 읽기 - fetch<br><br>
+	<button id="btnSingle">한 개 읽기</button><br>
+	<button id="btnMulti">여러 개 읽기</button><br>
+	<hr>
+	<div id="showData">
+	
+	</div>
+</body>
+</html>
