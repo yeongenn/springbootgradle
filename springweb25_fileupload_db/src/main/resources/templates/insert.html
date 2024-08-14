@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/insert.html</title>
+</head>
+<body>
+	<div th:if="${message}" style="color: tomato;">
+		<p th:text="${message}"></p>
+	</div>
+	
+	<h3>사진 등록</h3>
+	<form th:action="@{/insert/upload}" method="post" enctype="multipart/form-data">
+		번호 : <input type="text" id="bunho" name="bunho" required="required"><br>
+		이름 : <input type="text" id="irum" name="irum" required="required"><br>
+		전화 : <input type="text" id="junhwa" name="junhwa" required="required"><br>
+		직업 : <input type="text" id="jikup" name="jikup" required="required"><br>
+		사진 선택 : <input type="file" id="file" name="file" required="required"><br>
+		<button type="submit">등록</button>&nbsp;&nbsp;&nbsp;
+		<button type="button" onclick="history.back()">이전</button>
+		
+	</form>
+</body>
+</html>
