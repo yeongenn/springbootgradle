@@ -9,6 +9,12 @@
 	<div>
 		<a th:href="@{/insert}">파일 추가</a>
 	</div>
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<button type="submit">로그아웃</button>
+		</form>
+	</div>
 	
 	<table>
 		<tr>
