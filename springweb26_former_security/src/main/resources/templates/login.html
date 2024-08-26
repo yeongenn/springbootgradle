@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/login.html</title>
+</head>
+<body>
+<h2>SESSION 로그인 연습(Security 사용 X)</h2>
+<form th:action="@{/login}" method="post">
+	<table>
+		<tr>
+			<td>id : </td>
+			<td>
+				<input type="text" name="userid">
+			</td>
+		</tr>
+		<tr>
+			<td>pwd : </td>
+			<td>
+				<input type="password" name="password">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: center;">
+				<input type="submit" value="로그인">
+			</td>
+		</tr>
+	</table>
+</form>
+<!-- 로그인 실패했을 때 -->
+<div style="color: red;">
+	<th:block th:if="${error}">[[${error}]]</th:block>
+</div>
+</body>
+</html>
