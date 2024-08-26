@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/gugu.html</title>
+</head>
+<body>
+<h2>구구단 입력 페이지</h2>
+<!-- 
+<form action="/auth/gugu" method="post">
+ -->
+<form th:action="@{/auth/gugu}" method="post">
+	<label for="num">구구단 숫자 입력 : </label>
+	<input type="number" id="num" name="num" value="2" required="required">
+	<input type="submit" value="확인">
+</form>
+</body>
+</html>
