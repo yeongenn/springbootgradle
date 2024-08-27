@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="httsp://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/login.html</title>
+</head>
+<body>
+<h3>로그인 페이지</h3>
+<form th:action="@{/login}" method="post">
+	<div>
+		username : <input type="text" name="username" />
+	</div>
+	<div>
+		password : <input type="text" name="password" />
+	</div>
+	<div>
+		<button type="submit">로그인</button>
+	</div>
+	
+	<div th:if="${param.logout}">
+		<p>성공적으로 로그아웃 되었습니다</p>
+	</div>
+	
+	<div th:if="${param.expired}">
+		<p>세션 유효시간 만료로 로그아웃 되었습니당</p>
+	</div>
+</form>
+</body>
+</html>
