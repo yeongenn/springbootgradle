@@ -28,7 +28,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth -> 	// 요청에 대한 인증 및 권한 부여 설정
-									auth.requestMatchers("/auth/login", "/auth/logout", "/auth/gugu", "/static/**")	// 이 요청들은
+									auth.requestMatchers("/auth/login", "/auth/logout", "/static/**")	// 이 요청들은
 										.permitAll()	// 누구에게나 허용
 										.anyRequest().authenticated())	// 그 외의 요청은 인증 요구
 			.formLogin(formLogin -> 	// 폼(커스텀) 기반 로그인 설정
@@ -41,6 +41,9 @@ public class SecurityConfig {
 			.logout(logout -> 
 						logout.logoutUrl("/auth/logout")
 							.logoutSuccessUrl("/auth/login")
+							.invalidateHttpSession(true)	// 세션 무효화
+							.clearAuthentication(true)	// 인증 정보 제거
+							.deleteCookies("JSESSIONID")	// 세션 쿠키 삭제
 							.permitAll());
 		return http.build();
 					
