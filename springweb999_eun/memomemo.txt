@@ -51,4 +51,8 @@ mariadb에서 over (partition by )가 된다길래 해봤는데
 https://jg-han.tistory.com/101
 
 ## 240801
-AJAX로 JSON 데이터 가져오기 (springboot + react) 
+AJAX로 JSON 데이터 가져오기 (springboot + react)
+
+## 240809
+querydsl 빌드하려다가 때려침
+

@@ -40,4 +40,7 @@ public class TestDao{
         List<Gogek> gogekList = gogekRepository.findByJikwonNo(jikwonNo);
         return gogekList;
     }
+    
+   
+    
 }

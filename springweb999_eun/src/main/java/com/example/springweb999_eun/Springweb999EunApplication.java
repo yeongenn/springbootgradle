@@ -45,10 +45,10 @@ public class Springweb999EunApplication {
 
 	private void execute(){
 		
-		getJikwonAll(); // 직원 전체 보기
-		getJikwonByBuser("영업부"); // 부서별 직원 보기
-		getGogekByJikwon("5"); // 직원별 담당 고객 보기
-		getJikwonOverAvgPay(); // 평균 연봉 이상 직원 보기
+//		getJikwonAll(); // 직원 전체 보기
+//		getJikwonByBuser("영업부"); // 부서별 직원 보기
+//		getGogekByJikwon("5"); // 직원별 담당 고객 보기
+//		getJikwonOverAvgPay(); // 평균 연봉 이상 직원 보기
 		getJikwonOnGogek(); // 담당 고객 하나라도 있는 직원 보기
 		
 	}
