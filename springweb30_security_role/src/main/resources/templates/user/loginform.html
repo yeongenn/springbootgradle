@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/user/loginform.html</title>
+</head>
+<body>
+	<h3>사용자 정보 샘플</h3>
+	<table border="1">
+		<tr>
+			<th>아이디</th>
+			<th>비밀번호</th>
+			<th>ROLL</th>
+		</tr>
+		<tr>
+			<td>guest</td>
+			<td>1234</td>
+			<td>ROLE_USER</td>
+		</tr>
+		<tr>
+			<td>batman</td>
+			<td>1234</td>
+			<td>ROLE_STAFF</td>
+		</tr>
+		<tr>
+			<td>superman</td>
+			<td>1234</td>
+			<td>ROLE_ADMIN</td>
+		</tr>
+	</table>
+	
+	<h3>로그인 폼</h3>
+	<form th:action="@{/user/login}" method="post">
+		<input type="text" name="userName" placeholder="사용자명"><br>
+		<input type="text" name="password" placeholder="비밀번호"><br>
+		<button type="submit">클릭</button><br>
+	</form>
+</body>
+</html>

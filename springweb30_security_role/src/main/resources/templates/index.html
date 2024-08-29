@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/index.html</title>
+</head>
+<body>
+	<h3>홈 페이지</h3>
+	<div sec:authorize="isAuthenticated()">
+		<strong sec:authentication="name"></strong>님 로그인 중...<br>
+		<a th:href="@{/user/logout}">로그아웃</a>
+	</div>
+	<div sec:authorize="!isAuthenticated()">
+		로그인 상태가 아님<br>
+		<a th:href="@{/user/loginform}">로그인 하러 가기</a>
+	</div>
+	
+	<ul>
+		<li><a th:href="@{/notice}">공지사항 보기(로그인 필요 없음)</a></li>
+		<li><a th:href="@{/play}">놀이터(로그인 필요)</a></li>
+		<li><a th:href="@{/shop}">쇼핑하기(로그인 필요 없음, 상품 구입 시 로그인 필요)</a></li>
+		<!-- staff 권한 -->
+		<li><a th:href="@{/staff/user/list}">회원목록 보기(STAFF, ADMIN 전용)</a></li>
+		<!-- admin 권한 -->
+		<li><a th:href="@{/admin/user/manage}">회원관리(ADMIN 전용)</a></li>
+	</ul>
+</body>
+</html>
