@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>index.html</title>
+<!-- SockJS와 STOMP 라이브러리 읽기용 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script type="text/javascript">
+let stompClient = null;
+
+function connect(){
+	//alert("connect");
+	let socekt = new SockJS('/ws');		// ws 엔드포인트를 통해 WebSocket 연결 객체를 생성
+	
+	// 클라이언트가 WebSocket 연결을 통해 Stomp를 사용할 수 있도록 설정
+	stompClient = Stomp.over(socekt);
+	
+	// 연결에 성공하면 콜백 함수가 호출
+	stompClient.connect({}, function(frame){	// frame : command, header, body로 구성
+		console.log('connected : ' + frame);
+		// '/topic/message' 로 수신된 메세지를 처리
+		// 메세지를 수신(구독)할 클라이언트는 서버가 해당 경로에 broadcast 한 메세지를 모두 수신 가능
+		// 한 명의 클라이언트가 메세지를 전송하면 접속된 모든 클라이언트가 이를 수신할 수 있다
+		stompClient.subscribe('/topic/messages', function(message){
+			showMessage(message.body);
+		});
+	})
+	
+}
+
+function sendMessage(){
+	//alert("sendMessage");
+	// 클라이언트가 입력한 메세지를 '/app/message'로 전송
+	let msgContent = document.querySelector("#message").value;
+	
+	// send('메세지 목적지', '메세지 헤더', '메세지 내용(:payload)') - 채팅 메세지, 데이터 갱신 요청, 좋아요 요청 등을 서버로 전달하는데 사용 
+	stompClient.send('/app/message', {}, msgContent);	// 헤더는 넣을 내용 없어서 빈칸으로~
+}
+
+function showMessage(message){
+	//alert("showMessage");
+	// 수신된 메세지를 출력
+	let msgElement = document.createElement("li");	// DOM 객체 생성
+	msgElement.textContent = message;
+	document.querySelector("#msgArea").appendChild(msgElement);
+}
+
+window.onload = function (){
+	connect();
+}
+</script>
+</head>
+<body>
+	<div>
+		<input type="text" id="message" placeholder="메세지 입력" onkeydown="if(event.keyCode == 13) sendMessage()">
+	<button onclick="sendMessage()">전송</button>
+	</div>
+	<ul id="msgArea"></ul>
+</body>
+
+</html>
