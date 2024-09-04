@@ -18,7 +18,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 	
 	@Override	// STOMP 엔드포인트를 등록
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/ws").withSockJS();
+		registry.addEndpoint("/ws")
+		.setAllowedOriginPatterns("*")
+		.withSockJS();
 		// "/ws" 엔드포인트는 SockJS 옵션을 통해 웹소켓을 사용할 수 있도록 설정
+		// .allowedOriginPatterns("http://localhost:8080", "http://korea.com") // 허용할 도메인 명시
 	}
 }
