@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>templates/index.html</title>
+<!-- SockJS와 STOMP 라이브러리 읽기용 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script type="text/javascript">
+let stompClient = null;
+
+function connect(){
+	//alert("connect");
+	let socekt = new SockJS('/ws');		// ws 엔드포인트를 통해 WebSocket 연결 객체를 생성
+	
+	// 클라이언트가 WebSocket 연결을 통해 Stomp를 사용할 수 있도록 설정
+	stompClient = Stomp.over(socekt);
+	
+	// 연결에 성공하면 콜백 함수가 호출
+	stompClient.connect({}, function(frame){	// frame : command, header, body로 구성
+		console.log('connected : ' + frame);
+	
+		// '/topic/notification'를 구독하여, 서버에서 메세지를 수신
+		stompClient.subscribe('/topic/notification', 
+			function(noti){
+				let parseNoti = JSON.parse(noti.body);
+				
+				showNotiFunc(parseNoti.type, parseNoti.message);
+			}
+		);
+	})
+	
+}
+
+function sendRequest(){
+	let fromUser = document.getElementById('fromUser').value;
+	
+	if(fromUser.trim() === ""){
+		alert("사용자 이름 입력");
+		return;
+	}
+	
+	stompClient.send("/app/friend-request", {}, fromUser)
+}
+
+function sendComment(){
+	//alert("b");
+	let fromUser = document.getElementById('fromUser').value;
+	
+	if(fromUser.trim() === ""){
+		alert("사용자 이름 입력");
+		return;
+	}
+	
+	stompClient.send("/app/comment", {}, fromUser)
+}
+
+function sendLike(){
+	//alert("c");
+	let fromUser = document.getElementById('fromUser').value;
+	
+	if(fromUser.trim() === ""){
+		alert("사용자 이름 입력");
+		return;
+	}
+	
+	stompClient.send("/app/like", {}, fromUser)
+}
+
+function showNotiFunc(type, message){
+	//alert(type + " " + message);
+	let notiList = document.getElementById('notiShow');
+	let li = document.createElement("li");
+	
+	if(type === "좋아요 알림"){
+		li.innerHTML = `${type} : ${message} ♥`;
+	} else {
+		li.appendChild(document.createTextNode(`${type} : ${message}`));
+	}
+	
+	notiShow.appendChild(li);
+}
+
+// 수업이랑 별개
+function date(){
+ 	const newDate = new Date('2024-08-25');
+ 	newDate.setDate(newDate.getDate() + 6);
+ 	console.log(newDate);
+}
+
+window.onload = connect;
+</script>
+</head>
+<body>
+<h3>실시간 알림</h3>
+<div>
+	사용자 이름 : 
+	<input type="text" id="fromUser" placeholder="이름 입력">
+</div>
+<br>
+<div>
+	<strong>이벤트 발생</strong>
+	<button onclick="sendRequest()">친구 요청</button>
+	<button onclick="sendComment()">댓글 알림</button>
+	<button onclick="sendLike()">좋아요 알림</button>
+</div>
+<br>
+<div>
+	<strong>알림 : </strong>
+	<ul id="notiShow"></ul>
+</div>
+</body>
+</html>

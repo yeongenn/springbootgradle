@@ -9,6 +9,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <script type="text/javascript">
+let stompClient = null;
+
 function connect(){
 	//alert("connect");
 	let socekt = new SockJS('/ws');		// ws 엔드포인트를 통해 WebSocket 연결 객체를 생성
@@ -22,8 +24,8 @@ function connect(){
 		// '/topic/message' 로 수신된 메세지를 처리
 		// 메세지를 수신(구독)할 클라이언트는 서버가 해당 경로에 broadcast 한 메세지를 모두 수신 가능
 		// 특정 주제('/topic/public')를 구독하여, 서버에서 메세지를 수신
-		stompClient.subscribe('/topic/messages', function(message){
-			showMessage(message.body);
+		stompClient.subscribe('/topic/public', function(message){
+			showMessage(JSON.parse(message.body));
 		});
 	})
 	
